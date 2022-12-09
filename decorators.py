@@ -1,4 +1,6 @@
 import functools
+# decorators functions do not mark as fixtures!
+
 def do_twice(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
