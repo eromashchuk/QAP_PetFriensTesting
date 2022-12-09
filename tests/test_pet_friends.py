@@ -238,3 +238,4 @@ class TestCasesNegative:
         pet_id = "0123456789456j"
         status, _ = pf.set_photo_by_pet_id(auth_key, pet_id, pet_photo)
         assert status == 400
+
