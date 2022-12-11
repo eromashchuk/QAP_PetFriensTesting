@@ -1,9 +1,20 @@
 """Модуль 19"""
 import json
-
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
+import functools
 
+def logger(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        args_repr = [repr(a) for a in args]
+        kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
+        signature = ", ".join(args_repr + kwargs_repr)
+        value = func(*args, **kwargs)
+        with open('log.txt', 'a', encoding='utf8') as file:
+            print(f"Вызвали {signature} \nВывело: {func.__name__!r} вернула значение - {value!r}", file=file)
+        return value
+    return wrapper
 
 class PetFriends:
     """апи библиотека к веб приложению Pet Friends"""
@@ -28,6 +39,7 @@ class PetFriends:
             result = res.text
         return status, result
 
+    @logger
     def get_list_of_pets(self, auth_key: json, filter: str = "") -> json:
         """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON
         со списком наденных питомцев, совпадающих с фильтром. На данный момент фильтр может иметь
@@ -70,6 +82,7 @@ class PetFriends:
         print(result)
         return status, result
 
+    @logger
     def delete_pet(self, auth_key: json, pet_id: str) -> json:
         """Метод отправляет на сервер запрос на удаление питомца по указанному ID и возвращает
         статус запроса и результат в формате JSON с текстом уведомления о успешном удалении.
