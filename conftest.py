@@ -95,12 +95,12 @@ import uuid
 #         except:
 #             pass # just ignore any errors here
 
-@pytest.fixture(autouse=True)
-def testing():
-    pytest.driver = webdriver.Chrome('C:/chromedriver/chromedriver.exe')
-    # Переходим на страницу авторизации
-    pytest.driver.get('http://petfriends.skillfactory.ru/login')
-
-    yield
-
-    pytest.driver.quit()
+# @pytest.fixture(autouse=True)
+# def testing():
+#     pytest.driver = webdriver.Chrome('C:/chromedriver/chromedriver.exe')
+#     # Переходим на страницу авторизации
+#     pytest.driver.get('http://petfriends.skillfactory.ru/login')
+#
+#     yield
+#
+#     pytest.driver.quit()
